@@ -5,4 +5,7 @@ Text mining project of 3rd semester at University of passau
 list the tools required for the project setup
 
 #one
-
+First we have to select a topic.
+#Note
+"Just a head's up"
+Currenty in college the professor is researching on vectorization so we may get topic from the same.
