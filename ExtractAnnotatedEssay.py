@@ -23,7 +23,7 @@ First of all, through cooperation, children can learn about interpersonal skills
 On the other hand, the significance of competition is that how to become more excellence to gain the victory. Hence it is always said that competition makes the society more effective. However, when we consider about the question that how to win the game, we always find that we need the cooperation. The greater our goal is, the more competition we need. Take Olympic games which is a form of competition for instance, it is hard to imagine how an athlete could win the game without the training of his or her coach, and the help of other professional staffs such as the people who take care of his diet, and those who are in charge of the medical care. The winner is the athlete but the success belongs to the whole team. Therefore without the cooperation, there would be no victory of competition.
 Consequently, no matter from the view of individual development or the relationship between competition and cooperation we can receive the same conclusion that a more cooperative attitudes towards life is more profitable in one's success."""
 
-"""
+
 splitter = Splitter.Splitter()
 postagger = POSTagger.POSTagger()
 
@@ -33,7 +33,7 @@ print(splitted_sentences)
 
 pos_tagged_sentences = postagger.pos_tag(splitted_sentences)
 
-#print pos_tagged_sentences
+print pos_tagged_sentences
 
 
 dicttagger = DictionaryTagger(['Dictionary/Claim.yml','Dictionary/Premise.yml'])
@@ -41,18 +41,6 @@ dicttagger = DictionaryTagger(['Dictionary/Claim.yml','Dictionary/Premise.yml'])
 dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
 
 print(dict_tagged_sentences)
-"""
 
 
-train = [
-    ('I love this sandwich.', 'pos'),
-    ('This is an amazing place!', 'pos'),
-    ('I feel very good about these beers.', 'pos'),
-    ('This is my best work.', 'pos'),
-    ("What an awesome view", 'pos'),
-    ('I do not like this restaurant', 'neg'),
-    ('I am tired of this stuff.', 'neg'),
-    ("I can't deal with this", 'neg'),
-    ('He is my sworn enemy!', 'neg'),
-    ('My boss is horrible.', 'neg')
-]
+
