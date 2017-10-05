@@ -1,7 +1,7 @@
 import yaml
 
 import nltk
-nltk.download('punkt')
+
 
 class Splitter(object):
     def __init__(self):
