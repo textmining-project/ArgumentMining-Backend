@@ -1,4 +1,5 @@
-
+import collections
+from itertools import ifilter
 
 class DataProcess(object):
     def __init__(self):
@@ -26,22 +27,33 @@ class DataProcess(object):
 
 
     def ExtractDataFeatures(self,data):
-        annotations = []
-        labels = []
+        full = {}
+        wholeobject = []
+        labs = []
         links = []
         for items in data:
-            print items['annotation']
             sentence = items['annotation']
+            full['sentence'] = sentence
             for label in items['labels']:
-                print ("label:",label)
                 for lab in label:
-                    print lab
                     if lab != None and lab != []:
-                        labelled = {"label": lab}
-                        labels.append(labelled)
+                        labs.append(lab)
+            full['label'] = labs
+            labs = []
             for link in items['links'].iteritems():
-                print link
+               lnk = link[0]
+               for x in link[1]:
+                   linkk = {lnk:x.repr}
+                   links.append(linkk)
+               full['links'] = links
+               links = []
 
+            wholeobject.append(full)
+            full = {}
+
+
+
+        print wholeobject
 
 
 
