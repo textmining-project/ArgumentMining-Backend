@@ -1,32 +1,43 @@
 import collections
 from itertools import ifilter
+from bratreader.repomodel import RepoModel
+
+reader = RepoModel("bratessays")
+completeset = []
 
 class DataProcess(object):
+
+    reader = RepoModel("bratessays")  # load repomodel
+
     def __init__(self):
         pass
 
 
-    def ProcessData(self,annotations):
-        dataObjectList = []
-        annotatedData = set(annotations)
-        for annotation in annotatedData:
-            #print("annotation :", annotation.repr)
-            #print("labels :", annotation.labels.items())
-            #print("links :", annotation.links)
-            #print("********************************************************************************")
+    def ProcessData(self):
+        for i in range(1, 91):
+            doc = reader.documents["essay" + str(i)]
+            dataObjectList = []
+            annotatedData = set(doc.annotations)
+            for annotation in annotatedData:
+                #print("annotation :", annotation.repr)
+                #print("labels :", annotation.labels.items())
+                #print("links :", annotation.links)
+                #print("********************************************************************************")
 
-            dataObject = {"annotation": annotation.repr,
-                          "labels": annotation.labels.items(),
-                          "links": annotation.links}
+                dataObject = {"annotation": annotation.repr,
+                              "labels": annotation.labels.items(),
+                              "links": annotation.links}
 
-            dataObjectList.append(dataObject)
-            #print(len(dataObjectList))
-
-
-        self.ExtractDataFeatures(dataObjectList)
+                dataObjectList.append(dataObject)
 
 
-    def ExtractDataFeatures(self,data):
+
+            data = self.ExtractDataFeatures(dataObjectList,doc.key)
+        return data
+
+
+
+    def ExtractDataFeatures(self,data,key):
         full = {}
         wholeobject = []
         labs = []
@@ -52,8 +63,8 @@ class DataProcess(object):
             full = {}
 
 
-
-        print wholeobject
+        completeset.append({key:wholeobject})
+        return completeset
 
 
 

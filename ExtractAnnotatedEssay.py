@@ -4,6 +4,7 @@ import bratreader
 import Splitter
 import POSTagger
 import DataProcessing
+import time
 
 from DictionaryTagger import DictionaryTagger
 from bratreader.repomodel import RepoModel
@@ -13,15 +14,18 @@ from DataProcessing import DataProcess
 
 
 reader = RepoModel("bratessays") # load repomodel
-reader.documents
+reader.documents['essay1']
 
-doc = reader.documents["essay01"]		# get document with key 001
+
+
+#doc = reader.documents["essay01"]		# get document with key 001
 #print("sentences",doc.sentences)    			# a list of sentences in document
 #print("annotation :",doc.annotations)       # the annotation objects in a documennt
-
-
 p = DataProcess.DataProcess()
-p.ProcessData(doc.annotations)
+processedData = p.ProcessData()
+print processedData
+
+
 
 """
 splitter = Splitter.Splitter()
