@@ -1,8 +1,11 @@
 import nltk
 import os
 from bratreader.repomodel import RepoModel
+from Utils import Utils
 
-reader = RepoModel("bratessays")
+bratessayFolder = Utils().getPathToFile('bratessays')
+
+reader = RepoModel(bratessayFolder)
 
 #doc = reader.documents["essay01"]		# get document with key 001
 #print("sentences",doc.sentences)    			# a list of sentences in document
@@ -12,7 +15,7 @@ completeset = []
 
 class DataProcess(object):
 
-    reader = RepoModel("bratessays")  # load repomodel
+    reader = RepoModel(bratessayFolder)  # load repomodel
 
     def __init__(self):
         pass
@@ -102,11 +105,11 @@ class DataProcess(object):
 
 
 
-    def getFilteredWords(self,argumentComponent,links = None):
+    def getFilteredWords(self,Components,links = None):
 
         # provide supporting and attacking argumetns with links if required
         sentences = []
-        for (sentiment,words) in argumentComponent:
+        for (sentiment,words) in Components:
             words_filtered = [e.lower() for e in words.split() if len(e) >= 3]
             sentences.append((words_filtered,sentiment))
 
@@ -162,6 +165,8 @@ class DataProcess(object):
 #------------------------------------------utilities -------------------------------------#
 
     def getPathToFile(self,RelativePath):
-        dir = os.path.dirname(__file__)
-        filename = os.path.join(dir, RelativePath)
-        return filename
+        dir = os.getcwd()
+        ROOT_DIR = os.path.dirname(os.path.abspath(dir))
+        folder = os.path.join(ROOT_DIR, RelativePath)
+        return folder
+

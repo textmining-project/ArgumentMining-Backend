@@ -1,5 +1,6 @@
 import nltk
 import DataProcessing
+import pickle
 
 from sklearn.naive_bayes import MultinomialNB,BernoulliNB
 from nltk.classify.scikitlearn import SklearnClassifier
@@ -35,10 +36,11 @@ class Classification(object):
         #global variables
 
         Arguments = dataProcess.ClassifyArguments(Data)  # holds claims premises, and major claims
-        #Links = dataProcess.ClassifyLinks(processedData)  # holds supporting and attacking arguments
-        filteredWords = dataProcess.getFilteredWords(Arguments)  # holds tagged words with claim, majorclaim, premises
+        Links = dataProcess.ClassifyLinks(Data)  # holds supporting and attacking arguments
+        filteredArgumentWords = dataProcess.getFilteredWords(Arguments)  # holds tagged words with claim, majorclaim, premises
+        filteredLinksWords = dataProcess.getFilteredWords(Links)
 
-        return filteredWords
+        return [filteredArgumentWords,filteredLinksWords]
 
 
     def getWordFeatures(self,Data):
@@ -72,24 +74,28 @@ class Classification(object):
     def getNaiveBayesClassifier(self,Training_Data):
 
         classifier = nltk.NaiveBayesClassifier.train(Training_Data)
+        self.savePickleFile(classifier,'Links_Naivebayes.pickle')
         return classifier
 
     def getSklearnClassifier(self,Training_Data):
 
         MNB_classifier = SklearnClassifier(MultinomialNB())
         classifier = MNB_classifier.train(Training_Data)
+        self.savePickleFile(classifier, 'Sklearn.pickle')
         return classifier
 
     def getLogisticRegressionClassifier(self,Training_Data):
 
         LogisticRegression_classifier = SklearnClassifier(LogisticRegression())
         classifier = LogisticRegression_classifier.train(Training_Data)
+        self.savePickleFile(classifier, 'LogisticRegression.pickle')
         return classifier
 
-    def getLogisticRegressionClassifier(self,Training_Data):
+    def getBernouliSklearnClassifier(self,Training_Data):
 
         BNB_classifier = SklearnClassifier(BernoulliNB())
         classifier = BNB_classifier.train(Training_Data)
+        self.savePickleFile(classifier, 'BernouliSklearn.pickle')
         return classifier
 
 # ------------Classifiers -----------------------------------------------#
@@ -102,4 +108,10 @@ class Classification(object):
         return nltk.classify.accuracy(Classifier, Test_Data) * 100
 
 
+#-------------saving pickle files--------------------#
+
+    def savePickleFile(self,classifier,name):
+        save_classifier = open(name, "wb")
+        pickle.dump(classifier, save_classifier, protocol=2)
+        save_classifier.close()
 

@@ -61,3 +61,35 @@ print(dict_tagged_sentences)
 
 
 """
+
+'''
+SentimentClassifiedData = []
+for item in predictedData:
+    testString = item[0]
+    words = word_tokenize(testString)
+    words = classification.create_word_features(words)
+    sentiment = LinksSentimentClassifier.classify(words)
+    x = list(item)
+    x.append(sentiment)
+    SentimentClassifiedData.append(tuple(x))
+
+print SentimentClassifiedData
+'''
+
+
+
+'''
+claims = []
+premises = []
+for item in predictedArgData:
+    if item[1] == 'Premise':
+        x = [item[0],item[1]]
+        premises.append(x)
+    if item[1] == 'Claim':
+        x = [item[0],item[1]]
+        claims.append(x)
+
+
+print claims
+print premises
+'''
