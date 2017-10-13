@@ -32,7 +32,7 @@ Text mining project at Universitat Passau
   
   
 - https://github.com/clips/bratreader.git 
-  [GitHub](https://github.com/clips/bratreader.git)
+
 
 - Using the above bratreader to extract each annotated essay as annotated object
   which contains several attributes which are used in Data preprocessing
@@ -40,10 +40,10 @@ Text mining project at Universitat Passau
 
 # Usage 
   
-   <script src="https://gist.github.com/abhiglobalistic/d3b60a5f9d20d1dad22ce598b6cbf615.js"></script>
-    
+   https://gist.github.com/abhiglobalistic/d3b60a5f9d20d1dad22ce598b6cbf615
+   {% gist d3b60a5f9d20d1dad22ce598b6cbf615 %}
         
 # Metrics
   
-   <script src="https://gist.github.com/abhiglobalistic/8471f10090ea24f623f5418589985ba1.js"></script>
+   https://gist.github.com/abhiglobalistic/8471f10090ea24f623f5418589985ba1
      
