@@ -169,16 +169,6 @@ LinksTesting_set =  accuracyTestData[1]
 #Metrics().evaluation(LinksTesting_set,NaiveArgumentSentimentClassifier)
 
 
-ArgNaiveBayesScore = classification.getClassifierAccuracy(NaiveArgumentSentimentClassifier,ArgumentTesting_set)
-LinkNaiveBayesScore = classification.getClassifierAccuracy(NaiveLinksSentimentClassifier,LinksTraining_set)
-
-ArgSklearnBayesScore = classification.getClassifierAccuracy(SklearnArgumentSentimentClassifier,ArgumentTesting_set)
-LinkSklearnBayesScore = classification.getClassifierAccuracy(SklearnLinksSentimentClassifier,LinksTraining_set)
-
-ArglogBayesScore = classification.getClassifierAccuracy(LogRegArgumentSentimentClassifier,ArgumentTesting_set)
-LinklogBayesScore = classification.getClassifierAccuracy(LogRegLinksSentimentClassifier,LinksTraining_set)
-
-
 print "Naive Bayes: ",ArgNaiveBayesScore,LinkNaiveBayesScore
 print "Sklearn : ",ArgSklearnBayesScore,LinkSklearnBayesScore
 print "Logistic reg: ",ArglogBayesScore,LinklogBayesScore
