@@ -1,19 +1,8 @@
-import classifier as classifier
 import nltk
-import bratreader
-import Splitter
-import POSTagger
-import DataProcessing
-import time
 import Classification
-import DataProcessing
 import pickle
-import os
 
 from RelationAnalyzer import RelationAnalyzer
-from DictionaryTagger import DictionaryTagger
-from bratreader.repomodel import RepoModel
-from nltk.tokenize import word_tokenize
 from DataProcessing import DataProcess
 
 dataProcess = DataProcess.DataProcess()
@@ -54,9 +43,10 @@ def Link_Extract_features(document):
 ArgumentTraining_set = nltk.classify.apply_features(Arg_Extract_features, Arguments)
 LinksTraining_set = nltk.classify.apply_features(Link_Extract_features, Links)
 
-'''
-# Uncomment this section in order to update the models with new training data
 
+
+# Uncomment this section in order to update the models with new training data
+'''
 ArgumentNaiveBayesClassifier = classification.getNaiveBayesClassifier(ArgumentTraining_set)
 LinksNaiveBayesClassifier = classification.getNaiveBayesClassifier(LinksTraining_set)
 
@@ -65,39 +55,68 @@ LinksSklearnClassifier = classification.getSklearnClassifier(LinksTraining_set)
 
 ArgumentLogisticRegressionClassifier = classification.getLogisticRegressionClassifier(ArgumentTraining_set)
 LinksLogisticRegressionClassifier = classification.getLogisticRegressionClassifier(LinksTraining_set)
- 
 '''
-
 
 
 # essays range from 81 to 90 for test -- provide key as essay"index of essay"
 test_data = dataProcess.getTestData('essay81')
 
 
-print test_data
+# --- Loading Classifiers from pickle file ----------------#
 
+##### Naive Bayes
 
 Arg_naiveclassifier_f = open('picklefiles/Argument_Naivebayes.pickle', "rb")
-ArgumentSentimentClassifier = pickle.load(Arg_naiveclassifier_f)
+NaiveArgumentSentimentClassifier = pickle.load(Arg_naiveclassifier_f)
 Arg_naiveclassifier_f.close()
 
-
 link_naiveclassifier_f = open('picklefiles/Links_Naivebayes.pickle', "rb")
-LinksSentimentClassifier = pickle.load(link_naiveclassifier_f)
+NaiveLinksSentimentClassifier = pickle.load(link_naiveclassifier_f)
 link_naiveclassifier_f.close()
+
+
+######  Sklearn
+
+Arg_sklearnclassifier_f = open('picklefiles/Argument_Sklearn.pickle', "rb")
+SklearnArgumentSentimentClassifier = pickle.load(Arg_sklearnclassifier_f)
+Arg_sklearnclassifier_f.close()
+
+link_sklearnclassifier_f = open('picklefiles/Links_Sklearn.pickle', "rb")
+SklearnLinksSentimentClassifier = pickle.load(link_sklearnclassifier_f)
+link_sklearnclassifier_f.close()
+
+
+###### Logistic Regression
+
+Arg_logisticRegclassifier_f = open('picklefiles/Argument_LogisticRegression.pickle', "rb")
+LogRegArgumentSentimentClassifier = pickle.load(Arg_logisticRegclassifier_f)
+Arg_logisticRegclassifier_f.close()
+
+link_logisticRegclassifier_f = open('picklefiles/Links_LogisticRegression.pickle', "rb")
+LogRegLinksSentimentClassifier = pickle.load(link_logisticRegclassifier_f)
+link_logisticRegclassifier_f.close()
+
+
 
 predictedArgData = []
 predictedLinkData = []
 
 
-# perform claim and premise classification
+# perform claim and premise classification using classifiers
 for sentence in test_data:
-    NaivePrediction = classification.getClassifierPrediction(ArgumentSentimentClassifier,sentence,Arg_word_features)
+    NaivePrediction = classification.getClassifierPrediction(NaiveArgumentSentimentClassifier,sentence,Arg_word_features)
     predictedArg = (sentence,NaivePrediction)
     predictedArgData.append(predictedArg)
-    #print predictedData
-    #print("Argument Naive Bayes : %s -- %s  " % (sentence,NaivePrediction))
 
+    '''
+    SklearnPrediction = classification.getClassifierPrediction(SklearnArgumentSentimentClassifier, sentence,Arg_word_features)
+    predictedArg = (sentence, SklearnPrediction)
+    predictedArgData.append(predictedArg)
+
+    LogisticRegPrediction = classification.getClassifierPrediction(LogRegArgumentSentimentClassifier, sentence,Arg_word_features)
+    predictedArg = (sentence, LogisticRegPrediction)
+    predictedArgData.append(predictedArg)
+    '''
 
 
 
@@ -112,7 +131,7 @@ for item in predictedArgData:
         claims.append(x)
 
 
-
+print predictedArgData
 # get predicted claims and premised based on sentiment similarity score .
 relationAnalyzer = RelationAnalyzer().performRelationAnalysis(claims,premises)
 
@@ -121,20 +140,43 @@ scoredPremiseList = relationAnalyzer[1]
 
 
 # finally perform support and attacks relation classification with the scored set
-print "RELATION -------------------------"
+'''
 for claim in scoredClaimsList:
     for premise in scoredPremiseList:
-        ClaimNaivePrediction = classification.getClassifierPrediction(LinksSentimentClassifier, claim, Link_word_features)
-        PremiseNaivePrediction = classification.getClassifierPrediction(LinksSentimentClassifier, premise, Link_word_features)
+        ClaimNaivePrediction = classification.getClassifierPrediction(NaiveLinksSentimentClassifier, claim, Link_word_features)
+        PremiseNaivePrediction = classification.getClassifierPrediction(NaiveLinksSentimentClassifier, premise, Link_word_features)
         if ClaimNaivePrediction == 'supports' and PremiseNaivePrediction == 'supports':
-            print ("Claim:%s","Supports","Premise:%s",claim,premise)
+            pass
+            #print ("Claim:%s","Supports","Premise:%s",claim,premise)
         #predictedLink = (sentence, NaivePrediction)
         #predictedLinkData.append(predictedLink)
         # print predictedData
         # print("Link Naive Bayes : %s -- %s  " % (sentence,NaivePrediction))
 
+'''
+
+''' Get accuracy of Classifiers '''
+
+accuracyTestData = dataProcess.getTestAccuracyData()
+ArgumentTesting_set = accuracyTestData[0]
+LinksTraining_set =  accuracyTestData[1]
 
 
+
+
+ArgNaiveBayesScore = classification.getClassifierAccuracy(NaiveArgumentSentimentClassifier,ArgumentTesting_set)
+LinkNaiveBayesScore = classification.getClassifierAccuracy(NaiveLinksSentimentClassifier,LinksTraining_set)
+
+ArgSklearnBayesScore = classification.getClassifierAccuracy(SklearnArgumentSentimentClassifier,ArgumentTesting_set)
+LinkSklearnBayesScore = classification.getClassifierAccuracy(SklearnLinksSentimentClassifier,LinksTraining_set)
+
+ArglogBayesScore = classification.getClassifierAccuracy(LogRegArgumentSentimentClassifier,ArgumentTesting_set)
+LinklogBayesScore = classification.getClassifierAccuracy(LogRegLinksSentimentClassifier,LinksTraining_set)
+
+
+print "Naive Bayes: ",ArgNaiveBayesScore,LinkNaiveBayesScore
+print "Sklearn : ",ArgSklearnBayesScore,LinkSklearnBayesScore
+print "Logistic reg: ",ArglogBayesScore,LinklogBayesScore
 
 
 

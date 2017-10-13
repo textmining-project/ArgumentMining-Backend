@@ -2,6 +2,7 @@ import nltk
 import os
 from bratreader.repomodel import RepoModel
 from Utils import Utils
+import Classification
 
 bratessayFolder = Utils().getPathToFile('bratessays')
 
@@ -21,7 +22,7 @@ class DataProcess(object):
         pass
 
     def ProcessData(self):
-        for i in range(1, 91):
+        for i in range(1, 80):
             doc = reader.documents["essay" + str(i)]
             dataObjectList = []
             annotatedData = set(doc.annotations)
@@ -161,6 +162,38 @@ class DataProcess(object):
 
         return sentences
 
+
+    def getTestAccuracyData(self):
+        classification = Classification.Classification()
+
+        for i in range(80, 90):
+            doc = reader.documents["essay" + str(i)]
+            dataObjectList = []
+            annotatedData = set(doc.annotations)
+            for annotation in annotatedData:
+
+                dataObject = {"annotation": annotation.repr,
+                              "labels": annotation.labels.items(),
+                              "links": annotation.links}
+
+                dataObjectList.append(dataObject)
+
+            data = self.ExtractDataFeatures(dataObjectList, doc.key)
+
+        preTrainingData = classification.prepareTrainingData(data)  # arguments and links
+        Arguments = preTrainingData[0]
+        Links = preTrainingData[1]
+
+        Arg_word_features = classification.getWordFeatures(Arguments)
+        Link_word_features = classification.getWordFeatures(Links)
+
+        classification.setWordfeatureSet(Arg_word_features)
+        ArgumentTesting_set = nltk.classify.apply_features(classification.extract_features, Arguments)
+
+        classification.setWordfeatureSet(Link_word_features)
+        LinksTesting_set = nltk.classify.apply_features(classification.extract_features, Links)
+
+        return [ArgumentTesting_set,LinksTesting_set]
 
 #------------------------------------------utilities -------------------------------------#
 

@@ -1,12 +1,13 @@
 import nltk
-import DataProcessing
 import pickle
+import os
 
 from sklearn.naive_bayes import MultinomialNB,BernoulliNB
 from nltk.classify.scikitlearn import SklearnClassifier
 from sklearn.linear_model import LogisticRegression
 from nltk.corpus import stopwords
 
+from Utils import Utils
 from DataProcessing import DataProcess
 
 
@@ -81,14 +82,14 @@ class Classification(object):
 
         MNB_classifier = SklearnClassifier(MultinomialNB())
         classifier = MNB_classifier.train(Training_Data)
-        self.savePickleFile(classifier, 'Sklearn.pickle')
+        self.savePickleFile(classifier, 'Links_Sklearn.pickle')
         return classifier
 
     def getLogisticRegressionClassifier(self,Training_Data):
 
         LogisticRegression_classifier = SklearnClassifier(LogisticRegression())
         classifier = LogisticRegression_classifier.train(Training_Data)
-        self.savePickleFile(classifier, 'LogisticRegression.pickle')
+        self.savePickleFile(classifier, 'Links_LogisticRegression.pickle')
         return classifier
 
     def getBernouliSklearnClassifier(self,Training_Data):
@@ -111,7 +112,9 @@ class Classification(object):
 #-------------saving pickle files--------------------#
 
     def savePickleFile(self,classifier,name):
-        save_classifier = open(name, "wb")
-        pickle.dump(classifier, save_classifier, protocol=2)
-        save_classifier.close()
+        PICKLE_DIR = Utils().getPath('picklefiles')
+        filename = os.path.join(PICKLE_DIR,name)
+        with open(filename,'wb') as f:
+            pickle.dump(classifier, f)
+
 

@@ -10,3 +10,9 @@ class Utils(object):
         ROOT_DIR = os.path.abspath(dirr)
         folder = os.path.join(ROOT_DIR, RelativePath)
         return folder
+
+    def getPath(self,RelativePath):
+        dirr = os.getcwd()
+        ROOT_DIR = os.path.abspath(dirr)
+        folder = os.path.join(ROOT_DIR, RelativePath)
+        return folder
