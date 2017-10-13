@@ -32,8 +32,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="189">
-                <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+              <first_editor relative-caret-position="315">
+                <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -197,16 +197,6 @@
             <path>
               <item name="ArgumentMining-Backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="ArgumentMining-Backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ArgumentMining-Backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ArgumentMining-Backend" type="462c0819:PsiDirectoryNode" />
-              <item name="bratessays" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ArgumentMining-Backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ArgumentMining-Backend" type="462c0819:PsiDirectoryNode" />
-              <item name="DataProcessing" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -906,8 +896,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="189">
-            <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <first_editor relative-caret-position="315">
+            <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />

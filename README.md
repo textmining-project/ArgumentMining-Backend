@@ -11,7 +11,7 @@ Text mining project at Universitat Passau
 - Scikit learn
 - nltk library
 - Pycharm or suitable IDE tool
-
+- [Brat reader ,Integrated with the project](https://github.com/clips/bratreader.git)
 # Datasets Train and Test
 
 - Christian Stab and Iryna Gurevych. 2014. Annotating argument components and relations
