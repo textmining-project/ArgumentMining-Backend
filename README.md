@@ -1,5 +1,5 @@
 # Identifying Argumentative Discourse Structures in Persuasive Essays
-Text mining project topic for 3rd semester at University of passau
+Text mining project at Universitat Passau
 
 # tools
 - Python 2.7
