@@ -26,13 +26,13 @@ Text mining project at Universitat Passau
 
 # Steps to Load and train your dataset
 
-- Collect corpus which should be annotated as shown below
-
- <script src="https://gist.github.com/abhiglobalistic/d7107236b6c40eb946b337abf86b8095.js"></script>
+- Collect corpus which should be annotated as shown below in the link
   
-  
-- https://github.com/clips/bratreader.git 
+- [Example for annotated data](https://gist.github.com/abhiglobalistic/d7107236b6c40eb946b337abf86b8095)  
 
+
+- [Bratreader](https://github.com/clips/bratreader.git )
+  
 
 - Using the above bratreader to extract each annotated essay as annotated object
   which contains several attributes which are used in Data preprocessing
@@ -40,10 +40,9 @@ Text mining project at Universitat Passau
 
 # Usage 
   
-   https://gist.github.com/abhiglobalistic/d3b60a5f9d20d1dad22ce598b6cbf615
-   {% gist d3b60a5f9d20d1dad22ce598b6cbf615 %}
+   [Usage Instructions](https://gist.github.com/abhiglobalistic/d3b60a5f9d20d1dad22ce598b6cbf615)
         
 # Metrics
   
-   https://gist.github.com/abhiglobalistic/8471f10090ea24f623f5418589985ba1
+   [Metrics sample](https://gist.github.com/abhiglobalistic/8471f10090ea24f623f5418589985ba1)
      
