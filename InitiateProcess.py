@@ -107,16 +107,19 @@ for sentence in test_data:
     NaivePrediction = classification.getClassifierPrediction(NaiveArgumentSentimentClassifier,sentence,Arg_word_features)
     predictedArg = (sentence,NaivePrediction)
     predictedArgData.append(predictedArg)
+    print ("Naive Bayes prediction: ",predictedArg)
 
     '''
     SklearnPrediction = classification.getClassifierPrediction(SklearnArgumentSentimentClassifier, sentence,Arg_word_features)
     predictedArg = (sentence, SklearnPrediction)
     predictedArgData.append(predictedArg)
+    print ("Sklearn prediction: ",predictedArg)
 
     LogisticRegPrediction = classification.getClassifierPrediction(LogRegArgumentSentimentClassifier, sentence,Arg_word_features)
     predictedArg = (sentence, LogisticRegPrediction)
     predictedArgData.append(predictedArg)
-    '''
+    print ("LogisticRegPrediction prediction: ",predictedArg)
+'''
 
 
 
@@ -131,7 +134,8 @@ for item in predictedArgData:
         claims.append(x)
 
 
-print predictedArgData
+#print predictedArgData
+
 # get predicted claims and premised based on sentiment similarity score .
 relationAnalyzer = RelationAnalyzer().performRelationAnalysis(claims,premises)
 
@@ -140,28 +144,29 @@ scoredPremiseList = relationAnalyzer[1]
 
 
 # finally perform support and attacks relation classification with the scored set
-'''
+
 for claim in scoredClaimsList:
     for premise in scoredPremiseList:
         ClaimNaivePrediction = classification.getClassifierPrediction(NaiveLinksSentimentClassifier, claim, Link_word_features)
         PremiseNaivePrediction = classification.getClassifierPrediction(NaiveLinksSentimentClassifier, premise, Link_word_features)
         if ClaimNaivePrediction == 'supports' and PremiseNaivePrediction == 'supports':
-            pass
-            #print ("Claim:%s","Supports","Premise:%s",claim,premise)
-        #predictedLink = (sentence, NaivePrediction)
-        #predictedLinkData.append(predictedLink)
-        # print predictedData
-        # print("Link Naive Bayes : %s -- %s  " % (sentence,NaivePrediction))
+            print ('%s:Supports:%s' % (claim, premise))
+        if ClaimNaivePrediction == 'attacks' and PremiseNaivePrediction == 'attacks':
+            print ('%s:Attacks:%s' %(claim, premise))
+        predictedLink = (sentence, NaivePrediction)
+        predictedLinkData.append(predictedLink)
 
 '''
 
-''' Get accuracy of Classifiers '''
+#Get accuracy of Classifiers
 
 accuracyTestData = dataProcess.getTestAccuracyData()
 ArgumentTesting_set = accuracyTestData[0]
-LinksTraining_set =  accuracyTestData[1]
+LinksTesting_set =  accuracyTestData[1]
 
+#from Metrics import Metrics
 
+#Metrics().evaluation(LinksTesting_set,NaiveArgumentSentimentClassifier)
 
 
 ArgNaiveBayesScore = classification.getClassifierAccuracy(NaiveArgumentSentimentClassifier,ArgumentTesting_set)
@@ -178,7 +183,7 @@ print "Naive Bayes: ",ArgNaiveBayesScore,LinkNaiveBayesScore
 print "Sklearn : ",ArgSklearnBayesScore,LinkSklearnBayesScore
 print "Logistic reg: ",ArglogBayesScore,LinklogBayesScore
 
-
+'''
 
 
 

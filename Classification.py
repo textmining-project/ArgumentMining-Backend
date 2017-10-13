@@ -75,21 +75,21 @@ class Classification(object):
     def getNaiveBayesClassifier(self,Training_Data):
 
         classifier = nltk.NaiveBayesClassifier.train(Training_Data)
-        self.savePickleFile(classifier,'Links_Naivebayes.pickle')
+        self.savePickleFile(classifier,'Naivebayes.pickle')
         return classifier
 
     def getSklearnClassifier(self,Training_Data):
 
         MNB_classifier = SklearnClassifier(MultinomialNB())
         classifier = MNB_classifier.train(Training_Data)
-        self.savePickleFile(classifier, 'Links_Sklearn.pickle')
+        self.savePickleFile(classifier, 'Sklearn.pickle')
         return classifier
 
     def getLogisticRegressionClassifier(self,Training_Data):
 
         LogisticRegression_classifier = SklearnClassifier(LogisticRegression())
         classifier = LogisticRegression_classifier.train(Training_Data)
-        self.savePickleFile(classifier, 'Links_LogisticRegression.pickle')
+        self.savePickleFile(classifier, 'LogisticRegression.pickle')
         return classifier
 
     def getBernouliSklearnClassifier(self,Training_Data):
