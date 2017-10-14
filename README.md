@@ -45,4 +45,7 @@ Text mining project at Universitat Passau
 # Metrics
   
    [Metrics sample](https://gist.github.com/abhiglobalistic/8471f10090ea24f623f5418589985ba1)
+   
+   
+   This project is only for education purpose only !!
      
